@@ -3,8 +3,8 @@
 use crate::module::ModuleInterface;
 use crate::Module;
 use crate::ModuleBuildContext;
-use std::any::Any;
-use std::sync::Arc;
+use core::any::Any;
+use alloc::sync::Arc;
 
 /// Components provide a service by implementing an interface. They may use
 /// other components as dependencies.

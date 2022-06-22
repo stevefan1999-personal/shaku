@@ -19,7 +19,8 @@ rand = "0.8"
 trybuild = "1.0"
 
 [features]
-default = ["thread_safe", "derive"]
+default = ["thread_safe", "derive", "std"]
 
 thread_safe = []
 derive = ["shaku_derive"]
+std = ["shaku_derive/std"]

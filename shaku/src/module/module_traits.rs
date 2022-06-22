@@ -1,5 +1,5 @@
 use crate::ModuleBuildContext;
-use std::any::Any;
+use core::any::Any;
 
 /// A module represents a group of services. By implementing traits such as [`HasComponent`] on a
 /// module, service dependencies are checked at compile time. At runtime, modules hold the

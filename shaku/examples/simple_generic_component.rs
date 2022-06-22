@@ -1,5 +1,6 @@
 //! A simple example of generic services and modules
 
+use std::sync::Arc;
 use shaku::{module, Component, HasComponent, Interface};
 
 trait Animal {

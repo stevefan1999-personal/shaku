@@ -5,6 +5,7 @@
 #![allow(clippy::too_many_arguments)]
 
 use shaku::{module, ModuleInterface};
+use std::sync::Arc;
 
 trait Submodule1: ModuleInterface {}
 trait Submodule2: ModuleInterface {}

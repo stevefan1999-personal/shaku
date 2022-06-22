@@ -2,6 +2,7 @@
 
 use self::services::{MyComponent, MyProviderImpl, ServicesModule};
 use shaku::module;
+use std::sync::Arc;
 
 module! {
     TestModule {
@@ -17,6 +18,7 @@ module! {
 
 mod services {
     use shaku::{module, Component, Interface, Provider};
+    use std::sync::Arc;
 
     pub trait MyComponent: Interface {}
     pub trait MyProvider {}

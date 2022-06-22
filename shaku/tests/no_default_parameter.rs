@@ -1,6 +1,7 @@
 //! Tests related to parameters which do not have a default value
 
 use shaku::{module, Component, Interface};
+use std::sync::Arc;
 
 trait MyComponent: Interface {}
 

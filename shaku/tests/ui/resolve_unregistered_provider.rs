@@ -1,6 +1,7 @@
 //! Requesting a provider which is not supported by the module will fail to compile
 
 use shaku::{module, HasProvider, Provider};
+use std::sync::Arc;
 
 trait ServiceTrait {}
 

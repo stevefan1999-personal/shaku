@@ -1,6 +1,7 @@
 //! A module which does not satisfy a provider's provider dependency will fail to compile
 
 use shaku::{module, Provider};
+use std::sync::Arc;
 
 trait DependencyTrait {}
 trait ProviderTrait {}

@@ -3,8 +3,8 @@ use crate::module::{ComponentMap, ParameterMap};
 use crate::parameters::ComponentParameters;
 use crate::provider::ProviderFn;
 use crate::{Component, ComponentFn, HasComponent, HasProvider, Module, ModuleBuildContext};
-use std::marker::PhantomData;
-use std::sync::Arc;
+use core::marker::PhantomData;
+use alloc::sync::Arc;
 
 /// Builds a [`Module`]. Component parameters can be set, and both components and providers
 /// implementations can be overridden.

@@ -38,7 +38,7 @@ pub fn expand_derive_provider(input: &DeriveInput) -> syn::Result<TokenStream> {
         > ::shaku::Provider<M> for #provider_name #generic_tys #generic_where {
             type Interface = dyn #interface;
 
-            fn provide(module: &M) -> ::std::result::Result<
+            fn provide(module: &M) -> ::core::result::Result<
                 Box<Self::Interface>,
                 Box<dyn ::std::error::Error>
             > {

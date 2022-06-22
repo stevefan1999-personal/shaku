@@ -1,6 +1,7 @@
 //! Requesting a component which is not supported by the module will fail to compile
 
 use shaku::{module, Component, Interface, HasComponent};
+use std::sync::Arc;
 
 trait ServiceTrait: Interface {}
 

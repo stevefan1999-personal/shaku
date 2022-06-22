@@ -3,6 +3,7 @@
 
 use shaku::{module, Component, HasComponent, HasProvider, Interface, Provider};
 use shaku_actix::{Inject, InjectProvided};
+use std::sync::Arc;
 
 trait MyComponent: Interface {}
 trait MyProvider {}

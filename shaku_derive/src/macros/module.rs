@@ -188,7 +188,7 @@ fn module_impl(module: &ModuleData, capture_build_context: bool) -> TokenStream 
     quote! {
         impl #impl_generics ::shaku::Module for #module_name #ty_generics #where_clause {
             #[allow(bare_trait_objects)]
-            type Submodules = (#(::std::sync::Arc<#submodule_types>),*);
+            type Submodules = (#(Arc<#submodule_types>),*);
 
             fn build(mut context: ::shaku::ModuleBuildContext<Self>) -> Self {
                 #submodules_init
@@ -216,7 +216,7 @@ fn module_builder(module: &ModuleData) -> TokenStream {
         impl #impl_generics #module_name #ty_generics #where_clause {
             #[allow(bare_trait_objects)]
             #visibility fn builder(
-                #(#submodule_names: ::std::sync::Arc<#submodule_types>),*
+                #(#submodule_names: Arc<#submodule_types>),*
             ) -> ::shaku::ModuleBuilder<Self> {
                 ::shaku::ModuleBuilder::with_submodules((#(#submodule_names),*))
             }
@@ -260,7 +260,7 @@ fn submodules_init(submodules: &Punctuated<Submodule, syn::Token![,]>) -> TokenS
     quote! {
         let (#(#names),*) = context.submodules();
         #(
-        let #names = ::std::sync::Arc::clone(#names);
+        let #names = Arc::clone(#names);
         )*
     }
 }
@@ -272,11 +272,11 @@ fn component_property(index: usize, component: &ComponentItem) -> TokenStream {
 
     if component.is_lazy() {
         quote! {
-            #property: ::shaku::OnceCell<::std::sync::Arc<#interface>>
+            #property: ::shaku::OnceCell<Arc<#interface>>
         }
     } else {
         quote! {
-            #property: ::std::sync::Arc<#interface>
+            #property: Arc<#interface>
         }
     }
 }
@@ -287,7 +287,7 @@ fn provider_property(index: usize, provider_ty: &Type) -> TokenStream {
     let interface = interface_from_provider(provider_ty);
 
     quote! {
-        #property: ::std::sync::Arc<::shaku::ProviderFn<Self, #interface>>
+        #property: Arc<::shaku::ProviderFn<Self, #interface>>
     }
 }
 
@@ -298,7 +298,7 @@ fn submodule_property(index: usize, submodule: &Submodule) -> TokenStream {
 
     quote! {
         #[allow(bare_trait_objects)]
-        #property: ::std::sync::Arc<#submodule_ty>
+        #property: Arc<#submodule_ty>
     }
 }
 
@@ -325,18 +325,18 @@ fn has_component_impl(index: usize, component: &ComponentItem, module: &ModuleDa
         impl #impl_generics ::shaku::HasComponent<#interface> for #module_name #ty_generics #where_clause {
             fn build_component(
                 context: &mut ::shaku::ModuleBuildContext<Self>
-            ) -> ::std::sync::Arc<#interface> {
+            ) -> Arc<#interface> {
                 context.build_component::<#component_ty>()
             }
 
-            fn resolve(&self) -> ::std::sync::Arc<#interface> {
+            fn resolve(&self) -> Arc<#interface> {
                 #get_ref_code
-                ::std::sync::Arc::clone(component)
+                Arc::clone(component)
             }
 
             fn resolve_ref(&self) -> &#interface {
                 #get_ref_code
-                ::std::sync::Arc::as_ref(component)
+                Arc::as_ref(component)
             }
         }
     }
@@ -351,9 +351,9 @@ fn has_provider_impl(index: usize, provider_ty: &Type, module: &ModuleData) -> T
 
     quote! {
         impl #impl_generics ::shaku::HasProvider<#interface> for #module_name #ty_generics #where_clause {
-            fn provide(&self) -> ::std::result::Result<
-                ::std::boxed::Box<#interface>,
-                ::std::boxed::Box<dyn ::std::error::Error>
+            fn provide(&self) -> ::core::result::Result<
+                Box<#interface>,
+                Box<dyn ::std::error::Error>
             > {
                 (self.#property)(self)
             }
@@ -379,12 +379,12 @@ fn has_subcomponent_impl(
         impl #impl_generics ::shaku::HasComponent<#component_ty> for #module_name #ty_generics #where_clause {
             fn build_component(
                 context: &mut ::shaku::ModuleBuildContext<Self>
-            ) -> ::std::sync::Arc<#component_ty> {
+            ) -> Arc<#component_ty> {
                 let (#(#submodule_names),*) = context.submodules();
                 #submodule_name.resolve()
             }
 
-            fn resolve(&self) -> ::std::sync::Arc<#component_ty> {
+            fn resolve(&self) -> Arc<#component_ty> {
                 self.#submodule_name.resolve()
             }
 
@@ -410,11 +410,11 @@ fn has_subprovider_impl(
     quote! {
         #[allow(bare_trait_objects)]
         impl #impl_generics ::shaku::HasProvider<#provider_ty> for #module_name #ty_generics #where_clause {
-            fn provide(&self) -> ::std::result::Result<
-                ::std::boxed::Box<#provider_ty>,
-                ::std::boxed::Box<dyn ::std::error::Error>
+            fn provide(&self) -> ::core::result::Result<
+                Box<#provider_ty>,
+                Box<dyn ::std::error::Error>
             > {
-                ::shaku::HasProvider::provide(::std::sync::Arc::as_ref(&self.#submodule_name))
+                ::shaku::HasProvider::provide(Arc::as_ref(&self.#submodule_name))
             }
         }
     }

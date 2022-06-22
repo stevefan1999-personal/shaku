@@ -15,7 +15,7 @@ more details, including a getting started guide.
 ## Example
 ```rust
 use shaku::{module, Component, Interface, HasComponent};
-use std::sync::Arc;
+use alloc::sync::Arc;
 
 trait Logger: Interface {
     fn log(&self, content: &str);

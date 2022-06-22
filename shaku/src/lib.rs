@@ -23,6 +23,14 @@
 // This can be removed once the MSRV is at least 1.45.
 #![allow(clippy::needless_doctest_main)]
 
+#![cfg_attr(not(feature = "std"), no_std)]
+
+#[cfg(not(feature = "std"))]
+extern crate alloc;
+
+#[cfg(feature = "std")]
+extern crate std as alloc;
+
 // Modules
 #[macro_use]
 mod trait_alias;

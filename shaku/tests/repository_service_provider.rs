@@ -1,6 +1,7 @@
 use shaku::{module, Component, HasComponent, HasProvider, Interface, Module, Provider};
 use std::cell::RefCell;
 use std::error::Error;
+use std::sync::Arc;
 
 trait ConnectionPool: Interface {
     fn get(&self) -> DbConnection;

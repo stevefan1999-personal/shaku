@@ -2,9 +2,9 @@ use crate::module::{ComponentMap, ParameterMap};
 use crate::parameters::ComponentParameters;
 use crate::{Component, HasProvider, Provider, ProviderFn};
 use crate::{ComponentFn, Module};
-use std::any::{type_name, TypeId};
-use std::fmt::{self, Debug};
-use std::sync::Arc;
+use core::any::{type_name, TypeId};
+use core::fmt::{self, Debug};
+use alloc::sync::Arc;
 
 /// Builds a [`Module`] and its associated components. Build context, such as
 /// parameters and resolved components, are stored in this struct.

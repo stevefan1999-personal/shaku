@@ -66,7 +66,7 @@ pub fn expand_derive_component(input: &DeriveInput) -> syn::Result<TokenStream> 
             #(#parameters_properties),*
         }
 
-        impl #generic_impls ::std::default::Default for #parameters_name #generic_tys #generic_where {
+        impl #generic_impls ::core::default::Default for #parameters_name #generic_tys #generic_where {
             #[allow(unreachable_code)]
             fn default() -> Self {
                 Self {

@@ -2,6 +2,7 @@
 #![cfg(feature = "thread_safe")]
 
 use shaku::{module, Component, Interface, ModuleInterface};
+use std::sync::Arc;
 
 trait TestComponent: Interface {}
 trait TestSubmodule: ModuleInterface {}

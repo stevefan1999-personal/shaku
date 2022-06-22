@@ -1,4 +1,4 @@
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 /// Used to store the parameters of a component. This is used instead of
 /// directly storing the parameters to avoid mixing up parameters of the same
